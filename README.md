@@ -44,9 +44,8 @@ Each skill loads only when its situation occurs. A typical run touches two; a li
 
 Not an essay — a verdict:
 
-```
-## Brief
-[2-3 lines: what exists, the gap, should you proceed?]
+> ## Brief
+> [2-3 lines: what exists, the gap, should you proceed?]
 
 | | |
 |---|---|
@@ -54,7 +53,6 @@ Not an essay — a verdict:
 | **Who does it** | 2-4 players, one line each |
 | **The gap** | one line — what nobody has done |
 | **Verdict** | adopt / extend / build, and why in one clause |
-```
 
 Ask for the full breakdown if you want it. You aren't paying for research you didn't ask for.
 
