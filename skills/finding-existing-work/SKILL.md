@@ -1,6 +1,6 @@
 ---
 name: finding-existing-work
-description: Use when a user presents an idea, solution, or build goal and the priority is discovering what already exists for it — searching prior art, tools, libraries, tutorials, and prior attempts before any implementation happens.
+description: Use at the moment an approach is about to be built from scratch and something existing might do the job — searching for tools, libraries, tutorials, and prior attempts before any implementation happens.
 ---
 
 # Finding Existing Work

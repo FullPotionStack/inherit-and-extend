@@ -1,6 +1,6 @@
 ---
 name: using-lookup
-description: Use when the user presents any idea, solution, problem, or build goal, however small or obvious it seems — including ones the agent believes it already knows how to solve. Triggers before implementation begins.
+description: Use at the moment code is about to be written, a tool chosen, a file created, or an approach settled — before implementation starts, to check whether a maintained solution already exists and should be reused instead of rebuilt.
 ---
 
 # Using Lookup
@@ -9,13 +9,22 @@ description: Use when the user presents any idea, solution, problem, or build go
 
 ## When to Use
 
-Consult this before acting on any of these:
+This is a **self-check, not a keyword match.** Fire it at the moment you are about to do any of these:
 
-- "I want to build / make / create / set up X"
-- "I'm thinking about Y"
-- "How should I do Z?"
-- "Here's my approach to W — what do you think?"
-- A bug report or problem where a known solution may already exist
+- Write implementation code
+- Pick a library, package, or tool
+- Create a file, script, or config
+- Settle on an approach and start executing it
+- Debug something from scratch when a known fix might exist
+
+You do **not** need the user to have announced an intent to build. Most of the time they haven't. The trigger is your own next action.
+
+Typical moments this fires, none of which involve the user saying "I'm building something":
+
+- About to hand-roll a parser, client, or retry loop
+- About to pick a library and start wiring it up
+- About to write a config file from scratch
+- Answering a bug by patching rather than by finding the known fix
 
 **Skip when:**
 
@@ -28,7 +37,7 @@ Consult this before acting on any of these:
 
 "I already know how to build this" is the most common reason this stage gets dropped, and the worst one to trust. Knowing how to do something is not the same as knowing that a maintained, better, already-shipped version exists. That gap is where the cost hides: a hand-rolled PDF parser when `pypdf` exists, a scraper when a scraping API does it in two minutes, a from-scratch state machine when a library has already debugged the edge cases.
 
-The situations that feel most confident to skip are the ones with the most prior art. Difficulty of implementation and quantity of prior art are not correlated — the boring problems are usually the solved ones.
+The situations that feel most confident to skip are the ones with the most existing solutions. Difficulty of implementation and how much already exists are not correlated — the boring problems are usually the solved ones.
 
 If a research check still seems like a waste of a minute, the cheapest possible check is justified. Level 0 exists exactly for this: 2-3 searches, one-line answer, move on. You are not choosing between researching deeply and skipping. You are choosing between a minute of verification and a possible afternoon of debugging someone else's solved bug.
 

@@ -1,6 +1,10 @@
 # inherit-and-extend
 
-A skill suite for AI coding agents. Find what already exists, evaluate it honestly, respect the license, and pass improvements forward.
+Agent skills that make an agent check whether something already exists before it builds it.
+
+Ask for a PDF parser and a naive agent writes one. This suite makes it search first, then hand you a decision: **adopt what's out there, extend it, or build your own.**
+
+It never installs anything and never starts implementing. The output is a verdict and a link. What you do with it is yours.
 
 MIT licensed. Works with any harness that reads `SKILL.md` — Claude Code, Cursor, Codex, Gemini CLI, Hermes Agent, and others following the [Agent Skills](https://agentskills.io) standard.
 
@@ -10,12 +14,16 @@ MIT licensed. Works with any harness that reads `SKILL.md` — Claude Code, Curs
 
 Agents are biased toward action. Ask for a scraper and you get a scraper. Ask for a parser and you get a parser. The default is *generate*, not *evaluate* — so wheels get reinvented, maintenance debt accrues, and the same bug gets debugged by everyone separately.
 
-This suite inserts a decision point before implementation, and a contribution path after it.
+This suite inserts a check before implementation, and a contribution path after it.
+
+## When it fires
+
+**On the agent's action, not on your announcement.** You don't have to say "I'm building something." It triggers at the moment code is about to be written, a library is about to be chosen, or a config is about to be created — the point where a two-minute search can save an afternoon.
 
 ## The pipeline
 
 ```
-using-lookup              dispatch only, does no work itself
+using-lookup              fires as implementation is about to start
      │
      ▼
 finding-existing-work     search depth, sources, output format
@@ -31,6 +39,24 @@ domain-playbooks          loaded on demand, any stage
 ```
 
 Each skill loads only when its situation occurs. A typical run touches two; a licensing question might touch three. Nothing loads speculatively.
+
+## What you get
+
+Not an essay — a verdict:
+
+```
+## Brief
+[2-3 lines: what exists, the gap, should you proceed?]
+
+| | |
+|---|---|
+| **Exists?** | yes / partial / no |
+| **Who does it** | 2-4 players, one line each |
+| **The gap** | one line — what nobody has done |
+| **Verdict** | adopt / extend / build, and why in one clause |
+```
+
+Ask for the full breakdown if you want it. You aren't paying for research you didn't ask for.
 
 ## Install
 
@@ -53,18 +79,18 @@ Or use the Agent Skills CLI, which detects your agents automatically:
 npx skills add FullPotionStack/inherit-and-extend
 ```
 
-Start with `using-lookup` — it's the bootstrap. The rest are reached through it.
+Install all six. `using-lookup` is the entry point; the rest are reached through it.
 
 ## The skills
 
-| Skill | Does | Loaded when |
-|---|---|---|
-| `using-lookup` | Dispatches to the right stage. Never researches. | Always consulted when the user presents an idea |
-| `finding-existing-work` | Search depth levels, where to look, the Brief output format | Before any implementation |
-| `evaluating-existing-work` | Adopt vs build, bias in partial solutions, cost of being wrong | Once candidates exist |
-| `licensing-and-payback` | License types, obligations, attribution, 9 payback methods | When reuse or a dependency comes up |
-| `contributing-back` | 7 channels, minimum viable share, low-friction rules | After something is built |
-| `domain-playbooks` | Where practitioners post, per domain | When generic sources aren't enough |
+| Skill | Does |
+|---|---|
+| `using-lookup` | Fires as implementation starts, then dispatches. Never researches itself. |
+| `finding-existing-work` | Search depth levels, where to look, the Brief output format |
+| `evaluating-existing-work` | Adopt vs build, bias in partial solutions, cost of being wrong |
+| `licensing-and-payback` | License types, obligations, attribution, nine payback methods |
+| `contributing-back` | Seven channels, minimum viable share, low-friction rules |
+| `domain-playbooks` | Where practitioners post, per domain |
 
 ## Design decisions
 

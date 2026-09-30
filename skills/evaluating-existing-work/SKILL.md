@@ -1,6 +1,6 @@
 ---
 name: evaluating-existing-work
-description: Use when prior art, tools, skills, or libraries have been found and the decision is whether to adopt, extend, fork, or build your own — especially when the match is partial, the license needs checking, or the agent is under pressure to just pick one.
+description: Use when existing tools, skills, or libraries have been found and the decision is whether to adopt, extend, fork, or build your own — especially when the match is partial, the license needs checking, or the agent is under pressure to just pick one.
 ---
 
 # Evaluating Existing Work
