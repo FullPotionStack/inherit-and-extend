@@ -39,7 +39,7 @@ Where people in each domain actually talk. Load from `finding-existing-work` whe
 
 - **Look in:** similar projects, the technique's lineage, community showcases
 - **Read:** how others solved the same structural problem
-- **Guard:** understand the landscape without letting it flatten your intent. Prior art is a reference, not a spec.
+- **Guard:** understand the landscape without letting it flatten your intent. Existing work is a reference, not a spec.
 
 ## Cross-domain
 
