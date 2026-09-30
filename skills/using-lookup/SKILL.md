@@ -1,0 +1,57 @@
+---
+name: using-lookup
+description: Use when the user presents any idea, solution, problem, or build goal, however small or obvious it seems — including ones the agent believes it already knows how to solve. Triggers before implementation begins.
+---
+
+# Using Lookup
+
+**Role: dispatch only.** This skill never searches, evaluates, or writes. It decides which stage of the pipeline applies and hands off.
+
+## When to Use
+
+Consult this before acting on any of these:
+
+- "I want to build / make / create / set up X"
+- "I'm thinking about Y"
+- "How should I do Z?"
+- "Here's my approach to W — what do you think?"
+- A bug report or problem where a known solution may already exist
+
+**Skip when:**
+
+- The task is purely mechanical (formatting, renaming, running a command)
+- The user says "just do it" or "skip the research"
+- The user explicitly wants to build from scratch to learn it
+- A previous stage in this conversation already ran
+
+**Never skip because it seems obvious.**
+
+"I already know how to build this" is the most common reason this stage gets dropped, and the worst one to trust. Knowing how to do something is not the same as knowing that a maintained, better, already-shipped version exists. That gap is where the cost hides: a hand-rolled PDF parser when `pypdf` exists, a scraper when a scraping API does it in two minutes, a from-scratch state machine when a library has already debugged the edge cases.
+
+The situations that feel most confident to skip are the ones with the most prior art. Difficulty of implementation and quantity of prior art are not correlated — the boring problems are usually the solved ones.
+
+If a research check still seems like a waste of a minute, the cheapest possible check is justified. Level 0 exists exactly for this: 2-3 searches, one-line answer, move on. You are not choosing between researching deeply and skipping. You are choosing between a minute of verification and a possible afternoon of debugging someone else's solved bug.
+
+## Dispatch table
+
+| Situation | Load next |
+|---|---|
+| User presents an idea; nothing found yet | `finding-existing-work` |
+| Candidates found; deciding adopt vs build | `evaluating-existing-work` |
+| A license, reuse, or dependency came up | `licensing-and-payback` |
+| User built something and it might help others | `contributing-back` |
+| Search needs domain-specific sources | `domain-playbooks` |
+
+Stages chain: `finding-existing-work` → `evaluating-existing-work` → (`licensing-and-payback`) → (`contributing-back`).
+
+**Load only the stage the current situation needs.** Pulling a later stage before its trigger wastes context and encourages acting on assumptions.
+
+## Rules
+
+- Dispatch on the user's words, not on what seems useful. If they asked "does X exist?", that's a lookup, not a build plan.
+- If two stages apply, run them in order. Don't skip `evaluating-existing-work` because the first candidate looks good — that's exactly the assumption that stage exists to check.
+- Stop dispatching once the pipeline reaches a decision. Hand the decision back to the user; don't continue into implementation.
+
+## Suite
+
+`inherit-and-extend` — find what exists, evaluate it, respect the license, and pass improvements forward.
