@@ -51,11 +51,19 @@ If the brief is not enough, ask and you get the full breakdown. The suite will n
 
 ## Install
 
+Install all six. They are a pipeline, not a menu: `using-lookup` fires first and hands off to the others, so leaving one out breaks the chain that reaches it.
+
+The CLI figures out which agents you have and puts each skill where it belongs:
+
+```bash
+npx skills add FullPotionStack/inherit-and-extend
+```
+
+To do it by hand, clone and copy the whole `skills/` directory into whichever path your harness reads:
+
 ```bash
 git clone https://github.com/FullPotionStack/inherit-and-extend.git
 ```
-
-Copy the folders you want into your skills directory:
 
 | Harness | Path |
 |---|---|
@@ -63,14 +71,6 @@ Copy the folders you want into your skills directory:
 | Hermes Agent | `~/.hermes/skills/` |
 | Cursor | `.cursor/skills/` |
 | Codex / Gemini CLI | `~/.agents/skills/` |
-
-There is also a CLI that detects your agents for you:
-
-```bash
-npx skills add FullPotionStack/inherit-and-extend
-```
-
-Take all six. `using-lookup` is the one that starts things off and the rest get reached through it.
 
 ## What's in the box
 
