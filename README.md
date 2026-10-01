@@ -1,24 +1,22 @@
 # inherit-and-extend
 
-Agent skills that make an agent check whether something already exists before it builds it.
+Ask an agent for a PDF parser and it will write one, every time. Most of the time a maintained library already does that job better, and the agent has no reason to go looking.
 
-Ask for a PDF parser and a naive agent writes one. This suite makes it search first, then hand you a decision: **adopt what's out there, extend it, or build your own.**
+This suite makes it look first, then hand you a decision.
 
-It never installs anything and never starts implementing. The output is a verdict and a link. What you do with it is yours.
+It does not install anything and it does not start writing code. You get a verdict and some links, and you decide what happens next.
 
-MIT licensed. Works with any harness that reads `SKILL.md` — Claude Code, Cursor, Codex, Gemini CLI, Hermes Agent, and others following the [Agent Skills](https://agentskills.io) standard.
+MIT. Works with anything that reads `SKILL.md`, which includes Claude Code, Cursor, Codex, Gemini CLI and Hermes Agent. They all follow the same [Agent Skills](https://agentskills.io) format.
 
 ---
 
-## The problem
+## Why it exists
 
-Agents are biased toward action. Ask for a scraper and you get a scraper. Ask for a parser and you get a parser. The default is *generate*, not *evaluate* — so wheels get reinvented, maintenance debt accrues, and the same bug gets debugged by everyone separately.
+Ask for a scraper, get a scraper. Ask for a parser, get a parser. Generating is the easy move, so that is the move agents make. The cost shows up later: hand-rolled code that needs maintaining, bugs other people already hit and fixed, and a week of debugging something that shipped in 2019.
 
-This suite inserts a check before implementation, and a contribution path after it.
+## When it kicks in
 
-## When it fires
-
-**On the agent's action, not on your announcement.** You don't have to say "I'm building something." It triggers at the moment code is about to be written, a library is about to be chosen, or a config is about to be created — the point where a two-minute search can save an afternoon.
+On what the agent is about to do, not on what you said. You do not have to announce an intention to build anything. It fires right before code gets written, a library gets picked, or a config file gets created.
 
 ## The pipeline
 
@@ -38,23 +36,20 @@ evaluating-existing-work  adopt / extend / compose / build
 domain-playbooks          loaded on demand, any stage
 ```
 
-Each skill loads only when its situation occurs. A typical run touches two; a licensing question might touch three. Nothing loads speculatively.
+Each skill loads when its situation comes up, not before. Most runs touch two. A run that hits a licensing question might touch three.
 
-## What you get
+## Sample output
 
-Not an essay — a verdict:
+Every run answers in this shape. Around 150 to 200 words, and the table is the whole thing:
 
-> ## Brief
-> [2-3 lines: what exists, the gap, should you proceed?]
-
-| | |
+| Question | Answer |
 |---|---|
-| **Exists?** | yes / partial / no |
-| **Who does it** | 2-4 players, one line each |
-| **The gap** | one line — what nobody has done |
-| **Verdict** | adopt / extend / build, and why in one clause |
+| Does something exist already? | yes, partial, or no |
+| Who has done it? | two to four options, one line each |
+| What has nobody done? | the gap, in one line |
+| So what do I do? | adopt it, extend it, or build it, and why in a clause |
 
-Ask for the full breakdown if you want it. You aren't paying for research you didn't ask for.
+If the brief is not enough, ask and you get the full breakdown. The suite will not hand you both at once, because that is tokens spent on something you did not ask for.
 
 ## Install
 
@@ -71,45 +66,45 @@ Copy the folders you want into your skills directory:
 | Cursor | `.cursor/skills/` |
 | Codex / Gemini CLI | `~/.agents/skills/` |
 
-Or use the Agent Skills CLI, which detects your agents automatically:
+There is also a CLI that detects your agents for you:
 
 ```bash
 npx skills add FullPotionStack/inherit-and-extend
 ```
 
-Install all six. `using-lookup` is the entry point; the rest are reached through it.
+Take all six. `using-lookup` is the one that starts things off and the rest get reached through it.
 
-## The skills
+## What's in the box
 
-| Skill | Does |
+| Skill | Job |
 |---|---|
-| `using-lookup` | Fires as implementation starts, then dispatches. Never researches itself. |
-| `finding-existing-work` | Search depth levels, where to look, the Brief output format |
-| `evaluating-existing-work` | Adopt vs build, bias in partial solutions, cost of being wrong |
-| `licensing-and-payback` | License types, obligations, attribution, nine payback methods |
-| `contributing-back` | Seven channels, minimum viable share, low-friction rules |
-| `domain-playbooks` | Where practitioners post, per domain |
+| `using-lookup` | Fires as implementation starts, then hands off. Never researches on its own. |
+| `finding-existing-work` | Search depth, where to look, the output format above |
+| `evaluating-existing-work` | Whether to adopt or build, and what a partial match is really telling you |
+| `licensing-and-payback` | What each license requires, plus nine ways to give back that keep your source closed |
+| `contributing-back` | Seven places to post something, and how little effort each one takes |
+| `domain-playbooks` | Where people in each field actually talk |
 
-## Design decisions
+## Choices worth explaining
 
-**The Brief is the default output.** Verdict first, a four-row table, 150-200 words. The full breakdown exists but is opt-in. Producing both in one turn wastes tokens the user didn't ask to spend — a lesson this suite learned by violating it.
+The brief is the default output and the full write-up waits until you ask for it. This suite learned that one by breaking it, which is worth saying plainly given that it now argues for the behavior it got wrong.
 
-**Search depth is set by budget, not complexity.** Levels 0/1/2 exist because token cost is the thing users actually reason about. Pick one and stay there.
+Search depth is set by how many tokens you want to spend, not by how hard the problem looks. Three levels, pick one, stop thinking about it. Difficulty and how much already exists turn out to be unrelated, and that is the argument for checking either way.
 
-**Payback is not open-sourcing your project.** Using MIT code in a commercial product and keeping your own source closed is legitimate and normal. The suite explains what each license actually obligates you to, and gives nine payback options that don't touch your IP.
+Paying back does not mean open-sourcing your project. Using MIT code in a commercial product while keeping your own source private is what most of the industry does. The skill covers what the license actually obligates you to, plus ways to give back that do not touch your IP.
 
-**The suite is domain-agnostic.** Most "search before building" skills assume software. The approach is identical whether you're choosing a game engine, a study path, or a Terraform module, so the playbooks cover all of them equally.
+It works outside software. Most "search before building" skills assume code. Picking a game engine, a study path or a Terraform module is the same decision, so the playbooks cover all of them.
 
-## Related work
+## Similar things
 
-- [`search-first`](https://github.com/affaan-m/everything-claude-code) — Claude Code skill, coding-specific, strong decision matrix
-- [`openclaw-skill-hunter`](https://github.com/mturac/skill-hunter) — "search before build" for OpenClaw
-- [Morrison-Lab's `dont-reinvent-wheel`](https://github.com/Morrison-Lab/ai-config/blob/main/shared/principles/dont-reinvent-wheel.md) — a well-developed internal principle doc
+- [`search-first`](https://github.com/affaan-m/everything-claude-code) for Claude Code. Coding only, though it has a scoring matrix worth borrowing.
+- [`openclaw-skill-hunter`](https://github.com/mturac/skill-hunter) does this for OpenClaw.
+- [Morrison-Lab's `dont-reinvent-wheel`](https://github.com/Morrison-Lab/ai-config/blob/main/shared/principles/dont-reinvent-wheel.md) is a good internal doc if you have an internal.
 
-This suite differs by being domain-agnostic, budget-aware, and covering the contribution and licensing side that the others don't.
+This one goes further on the licensing and contribution side, and it is not tied to code.
 
 ## Contributing
 
-Issues and PRs welcome. If you add a domain playbook, keep it to *where people actually post* — sources, not tutorials. That's the part that goes stale, and sources are what stays useful.
+PRs welcome. If you write a playbook, stick to where people post rather than tutorials. Sources stay useful for years, tutorials go stale.
 
-MIT. See [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
