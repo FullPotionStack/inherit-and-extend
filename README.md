@@ -2,17 +2,15 @@
 
 Ask an agent for a PDF parser and it will write one, every time. Most of the time a maintained library already does that job better, and the agent has no reason to go looking.
 
-This suite makes it look first, then hand you a decision.
+This suite makes it look first, then hand you a decision. It does not install anything and it does not start writing code. You get a verdict and some links, and you decide what happens next.
 
-It does not install anything and it does not start writing code. You get a verdict and some links, and you decide what happens next.
-
-MIT. Works with anything that reads `SKILL.md`, which includes Claude Code, Cursor, Codex, Gemini CLI and Hermes Agent. They all follow the same [Agent Skills](https://agentskills.io) format.
+Runs on anything that reads `SKILL.md`, which includes Claude Code, Cursor, Codex, Gemini CLI and Hermes Agent. They all follow the same [Agent Skills](https://agentskills.io) format.
 
 ---
 
 ## Why it exists
 
-Ask for a scraper, get a scraper. Ask for a parser, get a parser. Generating is the easy move, so that is the move agents make. The cost shows up later: hand-rolled code that needs maintaining, bugs other people already hit and fixed, and a week of debugging something that shipped in 2019.
+Generating is the easy move, so that is the move agents make. The cost shows up later: hand-rolled code that needs maintaining, bugs other people already hit and fixed, and a week of debugging something that shipped in 2019.
 
 ## When it kicks in
 
