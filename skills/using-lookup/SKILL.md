@@ -41,6 +41,19 @@ The situations that feel most confident to skip are the ones with the most exist
 
 If a research check still seems like a waste of a minute, the cheapest possible check is justified. Level 0 exists exactly for this: 2-3 searches, one-line answer, move on. You are not choosing between researching deeply and skipping. You are choosing between a minute of verification and a possible afternoon of debugging someone else's solved bug.
 
+## Re-check when the shape of the work changes
+
+A check you did once does not cover work that has since been restructured. This is the failure mode that produced this suite: prior art was checked for the whole, then the whole was split into six parts, and none of the six were checked. The most crowded part was the one nobody looked at.
+
+Re-run the check when:
+
+- The work gets split, merged, or restructured. **Every new piece needs its own check, not the parent's.**
+- A stage is added or removed.
+- You are about to build something at a scale, domain, or in a language you did not check at that scale before.
+- Time has passed. Prior art moves, and things that were new become standard.
+
+This applies to the suite itself. Each stage below carries its own prior-art check, and the honest summary lives in `PRIOR-ART.md` at the repo root. If you extend the suite, extend that file in the same commit. A skill that preaches searching for existing work and does not search for existing work is worse than one that never existed, because people trust it.
+
 ## Dispatch table
 
 | Situation | Load next |
