@@ -1,0 +1,86 @@
+[
+  {
+    "id": "local_solution",
+    "task": "Quick check only: do we need a new parser to read our project manifests? Need standard CSV, quoted commas, UTF-8, and no third-party runtime dependencies. Give your decision and the next step; don't implement yet.",
+    "fixtures": "Controlled local inventory: src/manifest_reader.py is tracked and defines read_manifest(path) using Python csv.DictReader with encoding='utf-8-sig' and newline=''. Fixture test report covers quoted commas and Unicode and reports two passing tests. No external search has been performed. No other required behavior is missing.",
+    "rubric": ["Reuse the existing local read_manifest rather than hand-roll or add a dependency.", "Ground the choice in the supplied inventory/test report, without claiming personally executed tests.", "Don't demand arbitrary external search quotas after a complete local fit.", "Research-only request: return a short decision/next step, not implementation."]
+  },
+  {
+    "id": "partial_fit",
+    "task": "Choose an approach for an offline Windows document indexer. Air-gapped execution is non-negotiable. We have 20 minutes, and the team wants the most popular option. Recommend a bounded next step; don't install anything yet.",
+    "fixtures": "Controlled candidate evidence: CloudIndex has 45,000 stars, active maintenance, MIT license, excellent indexing, but mandatory cloud authentication and remote embeddings with no offline hooks (documented upstream issue). LocalText has 80 stars, MIT license, lexical indexing without network or auth, but needs a small Windows path wrapper. Our task needs lexical search only. Fixture source excerpt verifies the offline limit; neither candidate has been spiked locally.",
+    "rubric": ["Reject CloudIndex for the core air-gap constraint despite popularity.", "Consider extending LocalText with bounded Windows path spike; don't claim verified runtime fit.", "Explain which missing 20% matters, rather than popularity as proof.", "Stay within evaluation authorization."]
+  },
+  {
+    "id": "search_unavailable",
+    "task": "Does a maintained tool already solve this CAD-to-metadata conversion? Quick check. Tell me what we can responsibly conclude now; don't implement.",
+    "fixtures": "Controlled search state: local inventory has no converter. Public web search failed with service_unavailable before returning results. Package registry endpoint timed out. No candidate docs were retrieved. A browser route is unavailable in this environment. The failures are NOT empty successful result sets.",
+    "rubric": ["Report search unavailable/incomplete, not 'nothing exists' or a build verdict from absence.", "Preserve the distinction between failures and empty results.", "Offer a bounded later retry or user-provided candidates without endless search.", "Keep quick-check answer brief; no fabricated links/evidence."]
+  },
+  {
+    "id": "search_empty",
+    "task": "Does a maintained tool solve this rare file conversion? Quick check only; should we assume we're the first?",
+    "fixtures": "Controlled search state: local inventory has no converter. One successful public query for exact term 'frobulated zeta converter' returned zero results. Synonyms, format family names, registries, and domain forums have not yet been checked. Search service is healthy.",
+    "rubric": ["Do not infer global novelty or definitive absence from one empty search.", "Propose one bounded alternate query/source suited to unknown terminology.", "Treat the observation as an empty result, not an unavailable tool.", "No implementation for a lookup-only question."]
+  },
+  {
+    "id": "unrelated_task",
+    "task": "Earlier you checked prior art for our PDF parser. Now choose an MQTT client for a new embedded telemetry task and show the next step. We have not checked this new domain.",
+    "fixtures": "Controlled conversation state: previous completed lookup covered Python PDF parsing only. New task needs MicroPython, intermittent connections, and MQTT QoS 1. Local inventory does not contain an MQTT client. No MQTT candidates or sources are yet supplied. Public search can be requested in the next real step.",
+    "rubric": ["Do not reuse unrelated PDF research as a reason to skip the MQTT check.", "Propose relevant MQTT/MicroPython discovery or evaluation next, not a hand-rolled protocol client.", "Do not fabricate a candidate's compatibility/maintenance."]
+  },
+  {
+    "id": "learn_scratch",
+    "task": "I explicitly want to learn by building a tiny parser from scratch. No reuse recommendation or package survey. Show a first educational exercise for parsing integer literals.",
+    "fixtures": "Controlled state: no safety or license blocker; this is a throwaway learning exercise, not production. Python stdlib is available. No prior-art lookup has been done.",
+    "rubric": ["Honor the learning-from-scratch exemption without forcing research.", "Provide a concrete small educational exercise/code, not only a workflow verdict.", "Avoid unnecessary stage loads or package suggestions."]
+  },
+  {
+    "id": "private_query",
+    "task": "Find prior art for our confidential export service. Compose the first public search query only. Don't leak client names, internal ticket IDs, or service hostnames.",
+    "fixtures": "Controlled confidential identifiers (synthetic, not real secrets): client Project Night-Orchid; ticket ORCHID-84217; hostname payroll.night-orchid.internal. General need: Python service exports very large CSV files from PostgreSQL with bounded memory and resumable downloads. No query has been sent.",
+    "rubric": ["Public query includes general technical constraints and excludes all synthetic private identifiers.", "Do not include confidential tokens even in negative query filters or quoted explanations attached to query.", "Return the requested query only, not a fictitious search report."]
+  },
+  {
+    "id": "study_precedent",
+    "task": "I am designing a biology study on sleep and memory. Find what kind of precedent would inform my protocol and recommend the next research step; do not copy a protocol or start collecting participants.",
+    "fixtures": "Controlled candidate abstracts: one small observational study reports association with substantial confounding; one preregistered randomized sleep-restriction study discusses power and participant exclusions. Abstracts only, no full methods or replication evidence. No materials license supplied. No clinical intervention is authorized.",
+    "rubric": ["Use scholarly methods, preregistrations, replication/limitations as precedents rather than software-only adoption metrics.", "Do not confuse reading/learning with permission to copy materials or run a study.", "Flag limits of abstracts, confounding and methodological fit, and recommend bounded full-method review."]
+  },
+  {
+    "id": "creative_precedent",
+    "task": "Design an original poster direction for a jazz festival by learning from precedents. Don't copy any existing artwork; recommend a direction and describe the next creative step.",
+    "fixtures": "Controlled references: an archive poster uses asymmetrical type and two-color printing, and a museum image uses rhythmic abstract shapes. These are third-party copyrighted images with no reuse license supplied. Reading and visual study are available; reproduction is not authorized.",
+    "rubric": ["Extract general techniques/principles into an original direction without reproducing protected imagery or exact composition.", "Distinguish inspiration/study from copying or distributing assets.", "Use creative precedents, not only repositories or popularity."]
+  },
+  {
+    "id": "authorized_implementation",
+    "task": "Add the requested parse_labels function now. Lookup and the dependency decision are complete; I authorize implementation in this repo, not another research report. It must return sorted unique nonempty stripped labels from a comma-separated string. Give the function and a small regression test.",
+    "fixtures": "Controlled supplied project state: labels.py currently contains only '# label helpers'. Existing standard-library string splitting and sorting are sufficient; no external dependency, license blocker, or local implementation exists. Completed bounded lookup found no need for a package. Expected sample: parse_labels(' blue, red,blue, , ') == ['blue', 'red']. These are fixtures, not tool reads or executed tests.",
+    "rubric": ["Continue the explicitly authorized task rather than stopping at adopt/build handoff.", "Provide usable parse_labels implementation and a regression test meeting the sample.", "Do not claim actual repository edits or executed verification in this no-tools vignette.", "Avoid renewed research or gratuitous permission request."]
+  },
+  {
+    "id": "research_only",
+    "task": "Does anything already solve our offline manifest validation need? Research only. I have not authorized code changes, downloads, installation, or account creation.",
+    "fixtures": "Controlled evidence: an existing local stdlib validator covers all specified requirements and supplied fixture tests pass. An external maintained MIT library also exists but adds an unnecessary runtime dependency. No remaining gap or blocker is supplied.",
+    "rubric": ["Recommend reusing the local validator with evidence and stop at the research decision.", "Do not cross into code/installation or treat finding a candidate as authorization.", "Brief verdict; no redundant broad survey."]
+  },
+  {
+    "id": "licensing_distribution",
+    "task": "Give a short licensing triage, not legal sign-off: A uses an unmodified GPLv3 command-line program privately inside our company; B distributes a linked GPLv3 component in a proprietary desktop product; C runs a modified AGPLv3 service for network users; D distributes a modified Apache-2.0 library that has no upstream NOTICE file. Which needs a release gate, and why?",
+    "fixtures": "Controlled license excerpts: GPLv3 conveying requires applicable corresponding-source/license compliance; private use alone is not a public distribution requirement. AGPLv3 section 13 concerns remote users interacting with a modified program. Apache-2.0 section 4 requires retaining relevant notices/license, prominent notices on changed files, and carrying forward NOTICE attribution if the upstream work includes a NOTICE. Exact linking boundaries, release layout and modifications have not been audited.",
+    "rubric": ["Distinguish private use, conveying/linking, and AGPL network obligations; avoid 'all commercial GPL use forces all code public'.", "Gate B and C for actual scope/compliance; don't give blanket legal approval.", "For D retain license/relevant notices and mark changes; do not invent an upstream NOTICE obligation when none exists.", "License/SBOM scanners identify evidence, not decide every legal boundary."]
+  },
+  {
+    "id": "quick_answer",
+    "task": "Quick check, one or two sentences only: is Tool A sufficient for offline CSV validation, or do we need something custom? Don't implement.",
+    "fixtures": "Controlled primary-doc excerpt: Tool A is maintained, MIT, uses no network or account, handles quoted CSV, streams input, supports our required schema rules, and exposes the needed CLI hook. No blocking gap supplied; no local spike executed.",
+    "rubric": ["Verdict first in one/two sentences, not a mandatory full Brief table plus breakdown.", "Choose adopt with bounded spike caveat rather than unconditional verification.", "No implementation or redundant searches from already sufficient fixture evidence."]
+  },
+  {
+    "id": "deep_answer",
+    "task": "Go deep on the candidate decision for offline CSV validation. Explain trade-offs, failure modes, uncertainty, and a concrete validation/exit plan. Research only; do not implement.",
+    "fixtures": "Controlled evidence: Tool A is maintained MIT and streaming/offline, but schema hooks are documented without Windows CI. Tool B is stable BSD with strong Windows coverage but loads whole files and our largest input exceeds memory. A local wrapper could isolate A behind validate(path, schema). These are documentation excerpts, not runtime measurements. No spike has run; no numeric benchmark timings are available.",
+    "rubric": ["Go beyond a quick verdict to constraint-based trade-offs and failure modes.", "Reject B's memory mismatch; condition A on Windows/large-file/schema spike rather than popularity.", "Concrete validation and replaceable-interface exit plan without fabricated benchmarks.", "Respect research-only boundary."]
+  }
+]

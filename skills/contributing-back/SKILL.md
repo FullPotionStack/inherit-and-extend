@@ -1,83 +1,82 @@
 ---
 name: contributing-back
-description: Use when the user has built, learned, or shipped something others could benefit from, or asked about publishing, open-sourcing, sharing, or where to post something — including when they want it to be easy rather than a whole project.
+description: Use when the user wants to share something they built or learned. Offer a small contribution, check publication rights and privacy, and leave posting optional.
 ---
 
-# Contributing Back
+# Contributing back
 
-Make sharing cheap. That's the whole job.
+Contribution is optional. Declining, postponing, or keeping a finding private
+is a valid choice. Do not turn a suggestion into an obligation or delay the
+user's work to make a voluntary post. License compliance is a separate question.
 
-**Optional. Never pressure.** A suggestion, not a requirement. Contribution must not delay shipping.
+## Check before preparing a public share
 
-## Straight talk
+- Confirm ownership and permission to publish, including employer/client
+  approval, NDA restrictions, and rights in copied code, documentation, or assets.
+- Remove credentials, private data, customer identifiers, internal URLs, and
+  proprietary details from examples, screenshots, logs, and repository history.
+  Prefer a synthetic example over a redacted production dump.
+- Check the destination's contribution and licensing terms, including any CLA
+  or DCO. A docs PR or isolated helper can still transfer rights or expose IP.
+- If scope or permission is unclear, load `licensing-and-payback` and pause the
+  affected publication decision. If that skill is unavailable, report it and
+  check the exact terms or ask for qualified advice rather than assume permission.
 
-- You used their public work. Paying that forward is fair, not heroic.
-- Your mistakes are someone else's shortcut.
-- Good solutions get rediscovered. Making yours findable saves time.
-- The goal is not to be a hero. It's to stop the next person losing an afternoon.
+Sharing a genuinely separate, permitted artifact need not mean publishing an
+unrelated product. That does not settle the obligations for reused material or
+guarantee a private product remains unaffected; review the actual license and
+integration before making that claim.
 
-## Pick the lowest-friction channel that fits
+## Pick one channel if the user wants to share
 
-| Channel | Fits | Effort |
+| Channel | Fits | Check first |
 |---|---|---|
-| **GitHub repo or gist** | Code, configs, scripts, skills | Low — push, share link |
-| **Skill publishing CLI** | Agent skills for 40+ harnesses — `npx publish-skills publish`, or GitHub's `gh skill` | Low — one command, PR-based |
-| **Stack Overflow answer** | A specific problem you solved | Low — answer an existing question |
-| **Twitter/X, LinkedIn** | Short summary + link | Low — a few sentences |
-| **Reddit / specialist forum** | A specific community that needs this | Low-Medium |
-| **Dev.to / Hashnode / Medium** | "How I did X", lessons learned | Medium |
-| **Docs PR to a project you use** | Confusing documentation | Low — no code shared, pure value |
-| **Personal blog** | Ongoing documentation | Medium-High — ongoing cost |
-| **Upstream contribution** | A real bug or gap you found | Medium-High — PR process |
+| Repository or gist | Code, scripts, skills, or reusable examples | License, notices, sensitive files and history |
+| Project issue or discussion | A reproducible bug or small finding | Project template, existing reports, sanitized reproduction |
+| Stack Overflow or specialist forum | An answer to a concrete question | Community rules, duplicates, relevance |
+| Docs PR | A correction to documentation | Contribution terms and rights in the submitted text |
+| Blog or social post | An explanation with permitted links or examples | Privacy, attribution, platform rules |
+| Donation | Support without publishing an artifact | Official project funding link and the user's budget |
 
-Publishing a skill publicly does **not** require your product's code to be public. Those are separate decisions with separate licenses. See `licensing-and-payback`.
+For a first upstream contribution, look for `good first issue` or `help wanted`
+labels and read the project's contribution guide. Existing directories include
+[Up For Grabs](https://up-for-grabs.net),
+[First Timers Only](https://www.firsttimersonly.com/), and
+[CodeTriage](https://www.codetriage.com/). Listing an issue does not mean the
+maintainer wants an unsolicited PR; follow the project's process.
 
-## Minimum viable share
+For skills, check the destination's current publishing documentation before
+choosing a CLI. Verify the command, version, prerequisites, visibility, and what
+it uploads. Do not run a publishing command as a discovery probe or promise
+compatibility with an unverified list of harnesses.
 
-Polish is optional. These four things make a useful post:
+## Draft the smallest useful share
 
-1. **What problem** you were solving
-2. **What you tried** — including what didn't work (usually the most valuable part)
-3. **What worked**, or what you'd do differently
-4. **Links** to what helped you (credit where due)
+A draft can state the problem, what was tried, what worked, and links to useful
+sources. Add enough context to reproduce the finding without revealing private
+material. A short permitted example is often enough; a public repository is not
+required. Keep mandatory notices with copied material; a credit link alone is
+not a replacement for license compliance.
 
-## Keep it light
+Return the draft, proposed destination, and any unresolved rights or privacy
+checks. Wait for the user's approval of the exact material and destination before
+posting, opening a public issue or PR, uploading an artifact, or scheduling it.
+Permission to draft is not permission to publish. If the user declines, stop.
 
-- Don't wait for perfect. A rough share beats a planned one that never ships.
-- A screenshot and a paragraph is often enough.
-- "Here's what I tried, here's what worked, here's what I'd do differently" is a complete contribution.
-- Small finding → forum post or SO answer. Not a blog.
-- Ship first, share after.
+## Multiple channels
 
-## Contributing to a project you depend on
+Only explore publishing or scheduling tools if the user asks for this workflow.
+[Postiz](https://postiz.com) is one candidate to evaluate, not a requirement or
+an endorsement. Verify its current integrations and licensing before adopting
+it; channel support and commands can change. Keep private content out of public
+queues, and obtain approval for each destination and any scheduled publication.
 
-If the goal is helping a project you use rather than announcing your own work, the prior art is well trodden and worth naming:
+## Distribution and hand off
 
-| Looking for | Go to |
-|---|---|
-| Beginner-friendly issues | GitHub search with `label:"good first issue"`, or `label:"help wanted"` |
-| Curated first-PR lists | [up-for-grabs.net](https://up-for-grabs.net), First Timers Only, CodeTriage |
-| Docs gaps | Usually the fastest first PR, and almost always welcome |
+Keep [LICENSE](LICENSE) and [PROVENANCE.md](PROVENANCE.md) with copies of this
+skill folder; external projects mentioned here have their own licenses.
 
-Naming these beats improvising a search strategy.
-
-## Distributing across many channels at once
-
-Posting the same thing to LinkedIn, X, Dev.to and Reddit by hand is the tedious part people give up on. If the user wants one input to become several channel-tailored posts, tools already exist and are worth checking before writing anything:
-
-- **[Postiz](https://postiz.com)** — open source, self-hosted, 30+ channels, ships an MCP server, explicitly supports Hermes Agent. Handles publishing and scheduling.
-- Anything that drafts per-channel copy from one input, which is the layer above Postiz rather than a competitor to it.
-
-Drafts get reviewed by a human before they go out. Never auto-post.
-
-## Don't
-
-- Force it. Pick your battles; not everything is worth posting.
-- Share anything proprietary, private, or under someone else's NDA.
-- Elaborate documentation for a small finding.
-- Tell the user "just push to GitHub" without checking whether a publishing CLI already does it for them — the Agent Skills standard (`agentskills.io`) has tooling for exactly this, and it works across 40+ harnesses.
-
-## Hand off
-
-- Unsure whether you may share at all, to `licensing-and-payback`
-- Nothing built yet, back to `finding-existing-work`
+- If permission or obligations remain unclear, load `licensing-and-payback`.
+- If nothing suitable has been built and the user wants options, load
+  `finding-existing-work`. If a referenced skill is unavailable, report that
+  and continue with the relevant checks above rather than invent a handoff.

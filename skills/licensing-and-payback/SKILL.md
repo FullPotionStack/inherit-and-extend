@@ -1,89 +1,109 @@
 ---
 name: licensing-and-payback
-description: Use when a license, reuse question, or dependency has come up — the user wants to know what they owe for using open source, whether they can use something commercially, what attribution is required, or how to give back without open-sourcing their own project.
+description: Use when a license, reuse question, or dependency comes up. Check permissions and obligations against the intended use; separate compliance from optional ways to give back.
 ---
 
 # Licensing and payback
 
-Two questions people usually answer by guessing: what am I allowed to do, and what do I owe.
+Identify what the license requires before suggesting voluntary contributions.
+This is license-risk triage, not legal advice or a compliance certification.
 
-This skill does the second one properly. For the first, it tells you which tool to use instead of re-explaining it badly.
+## Establish the facts
 
-## Use a tool for the audit. Do not eyeball it.
+1. Record the component, source URL, revision, and exact license and version.
+   Read the shipped license text, file headers, exceptions, and any dual-license
+   choices; repository metadata alone is not enough. Distinguish version-only
+   grants from "or any later version" permissions and record the chosen license
+   where the grant offers a choice.
+2. Record the intended private use, distribution of source or binaries, network
+   interaction, and integration method. Copying code, linking a library, running
+   a separate process, and bundling independent programs are different facts.
+3. Identify modifications, recipients, notices, source-delivery requirements,
+   patents, and compatibility questions for that use. Commercial use alone does
+   not determine whether disclosure obligations apply.
 
-License compliance has real tooling. It is mature, it is free, and it reads manifests you would have to read by hand. Checking manually means missing a transitive dependency, which is the whole failure mode.
+If permission is missing or the scope is uncertain, say what is unknown and
+pause the affected reuse or release decision. Ask the rights holder for missing
+permission or clarification; escalate material interpretation or compatibility
+questions to qualified legal counsel. Do not declare an entire product safe or
+incompatible from a license family label.
 
-| Need | Use |
+## Inventory with tools, then review
+
+Use [ORT](https://github.com/oss-review-toolkit/ort),
+[AboutCode](https://aboutcode.org), or an ecosystem scanner such as
+[`license-checker`](https://github.com/policiescans/license-checker) for an npm
+inventory. Syft or CycloneDX tooling can produce an SBOM.
+
+Scanners provide inventory and evidence, not legal judgments. Review unresolved
+or conflicting results, vendored code, assets, generated output, and transitive
+dependencies against the actual release contents. Notice generators can assemble
+known obligations; neither a generated file nor a clean CI result proves compliance.
+
+## License-risk triage
+
+These are review prompts for the named versions, not exhaustive requirements.
+For other versions, exceptions, or custom terms, read those terms instead.
+
+| License | Review for the intended use |
 |---|---|
-| Audit a full dependency tree, generate a report | [ORT](https://github.com/oss-review-toolkit/ort) (Apache-2.0), or [AboutCode](https://aboutcode.org)'s toolkit |
-| npm projects | `license-checker`, wired into CI |
-| Generate NOTICE / THIRD-PARTY-NOTICES | An existing notice generator skill, or AboutCode's ABOUT files |
-| Produce an SBOM for a release | Syft, CycloneDX, or your platform's own tool |
-| One-off question about a single license | Read it. This skill covers the families below. |
+| MIT | Keep the copyright and permission notice in copies or substantial portions. Preserve the full shipped license; a repo link alone does not replace it. |
+| Apache-2.0 | On redistribution, supply the license, mark changed files, and retain applicable source notices. If upstream includes a NOTICE file, preserve the applicable attribution notices as section 4(d) allows; do not assume every Apache work has one. Review the patent grant and termination terms. |
+| LGPL-3.0 | Library and combined-work rules differ from MPL. On conveying a combined work, review library source, notices, copies of both the GPLv3 and LGPLv3 license texts, the permitted relinking or suitable shared-library mechanism, reverse engineering for debugging library modifications, and installation information where required (section 4; section 3 separately addresses library header material). Physical separation alone is not compliance. |
+| MPL-2.0 | File-level copyleft: distribution of covered files, including modifications, preserves MPL terms and notices. Executable distribution requires making the covered source available and informing recipients; a larger work may use other terms for separate files (sections 3.1–3.4). This is not LGPL's relinking rule. |
+| GPL-3.0 | Private modification and use do not require public posting. When you convey covered works, review notices, licensing scope, Corresponding Source, and any installation information. An aggregate of independent works differs from a combined covered work (sections 2, 4–6); unrelated code does not automatically inherit GPL. |
+| AGPL-3.0 | In addition to conveyance rules, section 13 requires a modified version supporting remote network interaction to prominently offer its Corresponding Source to all users interacting with it remotely. Review this even without distributing copies; GPL has no equivalent general network-interaction trigger. |
 
-Do not hand-audit a dependency tree. That is what the tools are for, and they are better at it.
+BSD and ISC terms vary; preserve the applicable notices and check the exact
+variant. CC licenses have version-specific attribution, share-alike, and
+noncommercial conditions and are not interchangeable software licenses. Public
+domain or CC0 claims still need provenance and review of rights outside their
+scope. An absent LICENSE file is not a grant of permission: check other notices
+and agreements before assuming reuse is authorized.
 
-**If a license blocks a build decision, stop and say so before continuing.** A GPL dependency inside a closed-source product is a decision the user has to make, not one to discover at release.
+Primary texts: [MIT](https://opensource.org/license/mit),
+[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0),
+[LGPL-3.0](https://www.gnu.org/licenses/lgpl-3.0.html) (includes GPLv3 terms),
+[MPL-2.0](https://www.mozilla.org/en-US/MPL/2.0/),
+[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html), and
+[AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html).
+The [GNU FAQ on private modifications](https://www.gnu.org/licenses/gpl-faq.html#GPLRequireSourcePostedPublic)
+and [Mozilla FAQ](https://www.mozilla.org/en-US/MPL/2.0/FAQ/) explain common cases;
+FAQs supplement, rather than replace, license texts.
 
-## The license families
+## Compliance and acknowledgment are different
 
-Enough to classify a license at a glance. For the specific terms, read the actual license.
+A credit line is not license compliance. A "Uses Library (License)" line with a
+repository link can be a useful acknowledgment, but it does not replace required
+copyright and license text, applicable NOTICE content, modification notices,
+source delivery, or other obligations. Preserve supplied attribution accurately;
+do not invent authors or replace copyright holders with inferred names.
 
-| License | Commercial use | What you owe |
-|---|---|---|
-| **Permissive** (MIT, BSD, ISC) | Yes | Keep the copyright notice and license text. Nothing else. |
-| **Permissive + patent** (Apache-2.0) | Yes | The above, plus the NOTICE file and a note on changes you made. Explicit patent grant. |
-| **Weak copyleft** (LGPL, MPL-2.0) | Yes, if you keep the licensed part separate | Disclose changes to the licensed files. Your own code can stay closed. |
-| **Strong copyleft** (GPL, AGPL) | Yes, but your project inherits the license | **Stop and ask.** This can force you to open-source. |
-| **Public domain / CC0** | Yes | Nothing |
-| **Creative Commons** (CC-BY, CC-BY-SA, CC-BY-NC) | Varies, CC-BY-NC bars commercial use | Attribution nearly always required. Check the specific CC variant. |
-| **No license file** | No | Assume all rights reserved. Reading is fine, reuse is not. |
+For this skill's own distribution, keep [LICENSE](LICENSE) and
+[PROVENANCE.md](PROVENANCE.md) with the folder. The license covers this material,
+not the external tools it mentions.
 
-**No license file is the most common trap.** It is not public domain and it is not permission. Plenty of repos have none, and that is a legal fact rather than an oversight you can lean on.
+## Optional ways to give back
 
-Apache-2.0 differs from MIT mainly in the explicit patent grant. If you are licensing your own project and care about patent exposure, that is the reason to pick it.
+Once obligations are understood, offer contribution only if the user wants it.
+Donations, a sanitized bug report, a docs correction, or a permitted standalone
+helper can help without publishing an unrelated product. Declining, postponing,
+or keeping a finding private is a valid choice; do not pressure immediate posting.
 
-## Attributing
+Before sharing even documentation or an isolated helper, check ownership,
+employer/client approval, contribution terms (including any CLA or DCO), copied
+material, credentials, private data, and NDA restrictions. No contribution format
+is automatically free of license or IP implications. Do not publish anything
+without the user's approval of the exact material and destination.
 
-- **The license requires it** — non-negotiable, include the license text and the copyright notice
-- **It is a significant dependency** — an acknowledgments page or a "Built with" section, good practice even when not required
-- **Someone helped you** — a shout-out, which is manners rather than law
+## Report and hand off
 
-Minimum correct form: "Uses [Library] ([License]) by [Author]." Link the repo.
+Return the component/version, intended use, primary-text evidence, required
+release artifacts, and unresolved questions. Separate established obligations
+from assumptions and voluntary suggestions. Keep release approval with the owner
+and their compliance process.
 
-## Paying back without open-sourcing your project
-
-The recurring question: I used open source in a commercial product, I do not want to release my code, now what.
-
-**You do not owe your source code.** Not for MIT, not for Apache, not for BSD. Building on other people's permissive work and selling something is how most of the commercial software industry operates. The obligation is whatever the license says, and the form of payback is yours to choose.
-
-| You can | Why it helps |
-|---|---|
-| Give credit | Often required, and it sends them traffic |
-| Report bugs | Free QA for the maintainer, and it helps everyone who comes after you |
-| File feature requests | Naming a gap is already a contribution |
-| Donate (GitHub Sponsors, Open Collective, Ko-fi) | Money is the most universally useful contribution, and $5 a month to a project you depend on is real |
-| Write a case study | Social proof drives users, contributors, and funding |
-| Answer their questions | You learned it, so pass it on in their issues, forum, or Discord |
-| Submit a docs PR | Often the weakest part of a project, and it carries zero license implications |
-| Publish your experience | "How I used X to build Y" helps others evaluate it and gives the tool attention, at no cost to your IP |
-| Open-source an isolated helper | If you built something standalone, releasing that is a clean contribution with no risk to your product |
-
-**What you do not owe:** your project's source, unless strong copyleft actually requires it. Free labor on someone's roadmap. Anything the license does not say.
-
-## Anti-patterns
-
-| Mistake | Reality |
-|---|---|
-| Hand-auditing a dependency tree | Use ORT or `license-checker`. You will miss transitive deps. |
-| "No license means free" | It means no permission. Learn, do not copy. |
-| Skipping the copyleft check | GPL in a closed product can force you to open-source. Ask before building on it. |
-| "MIT means I owe nothing" | Attribution is usually required, and payback is still worth doing. |
-| "I must open-source everything I build" | False, and it keeps people from sharing at all. |
-| Romanticizing contribution | Useful rather than noble. Do it because it helps. |
-| "I will contribute later" | The finding dies. A quick forum post now beats a blog post you never write. |
-
-## Hand off
-
-- Something worth sharing got built, to `contributing-back`
-- A license blocks the decision, back to `evaluating-existing-work` with the constraint stated
+- If the user wants to share permitted material, load `contributing-back`.
+- If constraints affect candidate selection, load `evaluating-existing-work`
+  with the constraint stated. If either skill is unavailable, report that and
+  continue with the relevant checks here rather than pretending a handoff ran.
